@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-theme="dark">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Pedro Soriano · Portfolio</title>
   <meta name="description" content="Portfolio de Pedro Soriano Gallego: Full Stack Developer (Angular · Spring Boot)." />
+  <meta name="theme-color" content="#0b1020"/>
   <link rel="preload" href="cv-es.pdf" as="fetch" crossorigin>
   <link rel="preload" href="cv-en.pdf" as="fetch" crossorigin>
   <style>
+    /* ===== THEME TOKENS ===== */
     :root{
       --bg: #0b1020;
       --bg-soft:#0f1630;
@@ -19,57 +21,75 @@
       --ok:#10b981;
       --shadow: 0 20px 60px rgba(0,0,0,.45);
       --radius:16px;
+      --ring: 0 0 0 6px rgba(124,58,237,.18);
     }
-    *{box-sizing:border-box}
-    html,body{
-  margin:0;
-  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, "Helvetica Neue", Arial;
-  color:var(--text);
-  background:
-    radial-gradient(1200px 800px at 85% -10%, rgba(124,58,237,.20), transparent 60%) no-repeat fixed,
-    radial-gradient(900px 600px at -10% 110%, rgba(0,231,242,.18), transparent 60%) no-repeat fixed,
-    var(--bg);
-  background-color: var(--bg);
-  line-height:1.5; letter-spacing:.2px;
-}
-    body{
-  margin:0;
-  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, "Helvetica Neue", Arial;
-  color:var(--text);
-  background:
-    radial-gradient(1200px 800px at 85% -10%, rgba(124,58,237,.20), transparent 60%) no-repeat fixed,
-    radial-gradient(900px 600px at -10% 110%, rgba(0,231,242,.18), transparent 60%) no-repeat fixed,
-    var(--bg);
-  background-color: var(--bg);
-  line-height:1.5; letter-spacing:.2px;
-}
-    a{color:inherit}
-    .container{max-width:1100px; margin:0 auto; padding:28px;}
-    .nav{display:flex; align-items:center; justify-content:space-between; gap:16px; padding:10px 0; position:sticky; top:0; backdrop-filter: blur(8px); background:linear-gradient(180deg, rgba(11,16,32,.85), rgba(11,16,32,.35), transparent); z-index:20}
-    .brand{display:flex; gap:12px; align-items:center; text-decoration:none}
-    .logo{width:36px; height:36px; border-radius:10px; display:grid; place-items:center; background: linear-gradient(135deg, var(--brand), var(--brand-2)); box-shadow: var(--shadow); font-weight:800}
-    .logo span{filter:drop-shadow(0 6px 18px rgba(124,58,237,.45))}
-    .brand h1{font-size:1rem; margin:0; opacity:.9}
-    .actions{display:flex; gap:10px; align-items:center}
-    .btn{appearance:none; border:0; padding:10px 14px; border-radius:12px; background:var(--brand); color:white; text-decoration:none; font-weight:600; cursor:pointer; box-shadow: var(--shadow); transition:.25s transform, .25s filter, .25s background}
-    .btn:hover{transform: translateY(-1px)}
-    .btn.secondary{background:#1f2a5a}
-    .btn.ghost{background:transparent; border:1px solid rgba(255,255,255,.12)}
+    [data-theme="light"]{
+      --bg: #f6f7fb;
+      --bg-soft:#ffffff;
+      --card:#ffffff;
+      --text:#0f1222;
+      --muted:#5b6375;
+      --brand:#6d28d9;
+      --brand-2:#0ea5b7;
+      --shadow: 0 12px 36px rgba(10,14,30,.08);
+      --ring: 0 0 0 6px rgba(13,148,166,.14);
+    }
 
+    /* ===== BASE ===== */
+    *{box-sizing:border-box}
+    html,body{margin:0}
+    body{
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, "Helvetica Neue", Arial;
+      color:var(--text);
+      background:
+        radial-gradient(1200px 800px at 85% -10%, color-mix(in oklab, var(--brand) 20%, transparent), transparent 60%) no-repeat fixed,
+        radial-gradient(900px 600px at -10% 110%, color-mix(in oklab, var(--brand-2) 18%, transparent), transparent 60%) no-repeat fixed,
+        var(--bg);
+      background-color: var(--bg);
+      line-height:1.55; letter-spacing:.2px;
+      -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+    }
+    a{color:inherit}
+    .container{max-width:1100px; margin:0 auto; padding:28px}
+
+    /* ===== NAV ===== */
+    .nav{display:flex; align-items:center; justify-content:space-between; gap:16px; padding:10px 0; position:sticky; top:0; backdrop-filter: blur(8px); background:linear-gradient(180deg, color-mix(in oklab, var(--bg) 85%, transparent), color-mix(in oklab, var(--bg) 35%, transparent), transparent); z-index:20}
+    .brand{display:flex; gap:12px; align-items:center; text-decoration:none}
+    .logo{position:relative; width:40px; height:40px; border-radius:12px; display:grid; place-items:center; background: linear-gradient(135deg, var(--brand), var(--brand-2)); box-shadow: var(--shadow); font-weight:800; overflow:hidden}
+    .logo::after{content:""; position:absolute; inset:-2px; background: conic-gradient(from 0deg, var(--brand), var(--brand-2), var(--brand)); filter:blur(10px); opacity:.4; animation: spin 8s linear infinite}
+    .logo span{position:relative; z-index:1; filter:drop-shadow(0 6px 18px rgba(124,58,237,.45))}
+    .brand h1{font-size:1rem; margin:0; opacity:.9}
+
+    .actions{display:flex; gap:10px; align-items:center}
+    .btn{appearance:none; border:0; padding:10px 14px; border-radius:12px; background:var(--brand); color:white; text-decoration:none; font-weight:600; cursor:pointer; box-shadow: var(--shadow); transition:.25s transform, .25s filter, .25s background, .25s opacity}
+    .btn:hover{transform: translateY(-1px)}
+    .btn:focus-visible{outline:none; box-shadow: var(--ring)}
+    .btn.secondary{background:color-mix(in oklab, var(--bg) 40%, var(--brand) 20%)}
+    .btn.ghost{background:transparent; border:1px solid rgba(255,255,255,.12)}
+    .toggle{display:inline-flex; align-items:center; gap:8px}
+
+    /* ===== HERO & CARDS ===== */
     .hero{display:grid; grid-template-columns: 1fr; gap:24px; align-items:start; padding:32px 0 12px}
-    .card{background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02)); border:1px solid rgba(255,255,255,.08); border-radius:var(--radius); box-shadow: var(--shadow)}
+    .card{background:linear-gradient(180deg, color-mix(in oklab, #fff 4%, transparent), color-mix(in oklab, #fff 2%, transparent)); border:1px solid color-mix(in oklab, #fff 8%, transparent); border-radius:var(--radius); box-shadow: var(--shadow); transition:.3s transform, .3s box-shadow}
+    .card:hover{transform: translateY(-2px); box-shadow: 0 30px 80px rgba(0,0,0,.35)}
     .hero .intro{padding:28px}
     h2{font-size:clamp(1.6rem, 2.4vw, 2rem); margin:0 0 6px}
     .title-xl{font-size:clamp(2rem, 4.6vw, 3.4rem); line-height:1.1; margin:0 0 10px}
     .muted{color:var(--muted)}
+
+    /* ===== BADGES ===== */
     .badges{display:flex; flex-wrap:wrap; gap:8px; margin-top:12px}
-    .badge{padding:6px 10px; border-radius:999px; background:rgba(124,58,237,.14); border:1px solid rgba(124,58,237,.35); font-weight:600; font-size:.85rem}
-    .pill{padding:8px 12px; border-radius:999px; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12)}
+    .badge{padding:6px 10px; border-radius:999px; background:color-mix(in oklab, var(--brand) 14%, transparent); border:1px solid color-mix(in oklab, var(--brand) 35%, transparent); font-weight:600; font-size:.85rem; transition:.25s transform, .25s background}
+    .badge:hover{transform:translateY(-2px); background:color-mix(in oklab, var(--brand) 20%, transparent)}
+
+    .pill{padding:8px 12px; border-radius:999px; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12); transition:.25s border-color}
+    .pill:hover{border-color: color-mix(in oklab, var(--brand-2) 50%, rgba(255,255,255,.12))}
 
     .hero .aside{padding:16px}
-    .glass{padding:18px; border-radius:14px; background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.04)); border:1px solid rgba(255,255,255,.12)}
+    .glass{padding:18px; border-radius:14px; background:linear-gradient(180deg, color-mix(in oklab, #fff 6%, transparent), color-mix(in oklab, #fff 4%, transparent)); border:1px solid color-mix(in oklab, #fff 12%, transparent)}
     .stack{display:grid; gap:10px}
 
+    /* ===== GRID ===== */
     .grid{display:grid; gap:16px}
     .grid.cols-3{grid-template-columns: repeat(3, 1fr)}
     .grid.cols-2{grid-template-columns: repeat(2, 1fr)}
@@ -77,11 +97,12 @@
     .section{margin:28px 0}
     .section h3{margin:0 0 8px; font-size:1.2rem; opacity:.9}
 
+    /* ===== TIMELINE ===== */
     .timeline{position:relative; padding-left:20px}
     .timeline::before{content:""; position:absolute; left:8px; top:0; bottom:0; width:2px; background:linear-gradient(var(--brand), transparent)}
-    .item{position:relative; padding:14px 16px 14px 18px; border-radius:12px; background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.04)); border:1px solid rgba(255,255,255,.12)}
+    .item{position:relative; padding:14px 16px 14px 18px; border-radius:12px; background: linear-gradient(180deg, color-mix(in oklab, #fff 6%, transparent), color-mix(in oklab, #fff 4%, transparent)); border:1px solid color-mix(in oklab, #fff 12%, transparent)}
     .item + .item{margin-top:12px}
-    .dot{position:absolute; left:-1px; top:18px; width:10px; height:10px; border-radius:50%; background:var(--brand-2); box-shadow:0 0 0 3px rgba(0,231,242,.15)}
+    .dot{position:absolute; left:-1px; top:18px; width:10px; height:10px; border-radius:50%; background:var(--brand-2); box-shadow:0 0 0 3px color-mix(in oklab, var(--brand-2) 30%, transparent)}
 
     .footer{margin:40px 0 10px; opacity:.7; font-size:.9rem}
 
@@ -94,26 +115,28 @@
 
     .hide{display:none !important}
 
+    /* ===== RESPONSIVE ===== */
     @media (max-width: 860px){
       .hero{grid-template-columns: 1fr}
       .grid.cols-3{grid-template-columns: 1fr}
       .grid.cols-2{grid-template-columns: 1fr}
     }
-  
-.grid-cols-2 {
-  display: grid;
-  gap: 16px;
-  grid-template-columns: 1fr 1fr;
-}
+    .grid-cols-2 { display: grid; gap: 16px; grid-template-columns: 1fr 1fr }
+    @media (max-width: 860px){ .grid-cols-2 { grid-template-columns: 1fr } }
 
-@media (max-width: 860px) {
-  .grid-cols-2 {
-    grid-template-columns: 1fr;
-  }
-}
-</style>
+    /* ===== ANIMATIONS ===== */
+    @keyframes spin{to{transform:rotate(360deg)}}
+    @keyframes fadeUp{from{opacity:0; transform: translateY(12px)} to{opacity:1; transform:none}}
+    .reveal{opacity:0; transform: translateY(12px)}
+    .reveal.visible{opacity:1; transform:none; animation: fadeUp .6s ease both}
+
+    /* ===== REDUCED MOTION ===== */
+    @media (prefers-reduced-motion: reduce){
+      *{animation:none !important; transition:none !important}
+    }
+  </style>
   <script>
-    // Simple i18n toggler (es/en) + PDF download handling
+    // ===== i18n toggler (es/en) + PDF download handling =====
     const MAP = { es: 'cv-es.pdf', en: 'cv-en.pdf' };
     const T = {
       es: {
@@ -145,7 +168,7 @@
           'Buenas prácticas: control de versiones y pruebas.'
         ],
         edu: 'Educación',
-        edu_text: 'Universitat Politècnica de València · Tecnología Digital y Multimedia (Julio 2024)',
+        edu_text: 'Tecnología Digital y Multimedia',
         skills: 'Habilidades',
         bases_datos: 'Bases de datos',
         herramientas: 'Herramientas',
@@ -184,7 +207,7 @@
           'Best practices: version control and testing.'
         ],
         edu: 'Education',
-        edu_text: 'Universitat Politècnica de València · Digital Technology and Multimedia (July 2024)',
+        edu_text: 'Digital Technology and Multimedia',
         skills: 'Skills',
         bases_datos: 'Databases',
         herramientas: 'Tools',
@@ -201,16 +224,11 @@
       const val = (l === 'en' || l === 'es') ? l : 'es';
       localStorage.setItem('cvLang', val);
       document.documentElement.lang = val;
-      // text nodes
       const t = T[val];
       const q = s => document.querySelector(s);
       q('#role').textContent = t.role;
       const leadElement = q('#lead');
-      if (Array.isArray(t.lead)) {
-        leadElement.innerHTML = t.lead.map(p => `<p>${p}</p>`).join('');
-      } else {
-        leadElement.textContent = t.lead;
-      }
+      if (Array.isArray(t.lead)) { leadElement.innerHTML = t.lead.map(p => `<p>${p}</p>`).join(''); } else { leadElement.textContent = t.lead; }
       q('#exp').textContent = t.exp;
       q('#edu').textContent = t.edu;
       q('#edu-text').textContent = t.edu_text;
@@ -229,16 +247,31 @@
       fill('#bullets-cobra', t.bullets_cobra);
       q('#btn-cv-es').textContent = t.download_es;
       q('#btn-cv-en').textContent = t.download_en;
-      // swap default CV button href
       q('#btn-cv-primary').href = MAP[val];
       q('#btn-cv-primary').textContent = t.cta;
     }
-    function fill(sel, list){
-      const ul = document.querySelector(sel); ul.innerHTML = '';
-      list.forEach(x=>{ const li=document.createElement('li'); li.innerHTML=x; ul.appendChild(li); });
+    function fill(sel, list){ const ul = document.querySelector(sel); ul.innerHTML = ''; list.forEach(x=>{ const li=document.createElement('li'); li.innerHTML=x; ul.appendChild(li); }); }
+
+    function setTheme(theme){
+      const val = theme === 'light' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', val);
+      localStorage.setItem('theme', val);
+      const btn = document.querySelector('#theme-toggle');
+      if(btn) btn.ariaLabel = val === 'dark' ? 'Cambiar a tema claro' : 'Cambiar a tema oscuro';
+    }
+
+    // Intersection Observer to reveal elements on scroll
+    function mountReveal(){
+      const els = document.querySelectorAll('.reveal');
+      if(!('IntersectionObserver' in window) || els.length===0) return els.forEach(el=> el.classList.add('visible'));
+      const io = new IntersectionObserver((entries)=>{
+        entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target);} });
+      }, {threshold: .15});
+      els.forEach(el=> io.observe(el));
     }
 
     document.addEventListener('DOMContentLoaded', () => {
+      // language detection
       const params = new URLSearchParams(location.search);
       const qLang = (params.get('lang')||'').toLowerCase();
       const saved = localStorage.getItem('cvLang');
@@ -246,8 +279,18 @@
       const lang = qLang || saved || guess || 'es';
       setLang(lang);
 
-      // handle language toggle
-      document.querySelectorAll('[data-lang]').forEach(btn=> btn.addEventListener('click', e=> setLang(btn.dataset.lang)));
+      // theme detection
+      const storedTheme = localStorage.getItem('theme');
+      const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+      setTheme(storedTheme || (prefersLight ? 'light' : 'dark'));
+
+      // handlers
+      document.querySelectorAll('[data-lang]').forEach(btn=> btn.addEventListener('click', ()=> setLang(btn.dataset.lang)));
+      document.querySelector('#theme-toggle').addEventListener('click', ()=> setTheme(document.documentElement.getAttribute('data-theme')==='dark' ? 'light' : 'dark'));
+
+      document.getElementById('year').textContent = new Date().getFullYear();
+
+      mountReveal();
     });
   </script>
 </head>
@@ -260,13 +303,14 @@
     <div class="actions">
       <button class="btn ghost" data-lang="es" aria-label="Cambiar a español">ES</button>
       <button class="btn ghost" data-lang="en" aria-label="Switch to English">EN</button>
+      <button id="theme-toggle" class="btn secondary toggle" aria-label="Cambiar a tema claro">🌓</button>
       <a id="btn-cv-primary" class="btn" href="cv-es.pdf" download>Descargar CV</a>
     </div>
   </header>
 
   <main class="container">
     <section class="hero">
-      <div class="intro card">
+      <div class="intro card reveal">
         <p class="pill muted" id="role">Full Stack Developer - Angular · Spring Boot</p>
         <h2 class="title-xl">Pedro Soriano Gallego</h2>
         <p class="muted" id="lead">—</p>
@@ -293,136 +337,125 @@
         </div>
       </div>
       
-<aside class="aside">
-  <div class="glass">
-    <!-- Grid para Experiencia y Habilidades -->
-    <div class="grid-cols-2">
-      
-      <!-- EXPERIENCIA -->
-      <div class="section">
-        <h3 id="exp">Experiencia</h3>
-        <div class="timeline">
-          <article class="item">
-            <span class="dot" aria-hidden="true"></span>
-            <strong id="work-ntt">NTTDATA · Remoto · Nov. 2023 – Presente</strong>
+      <aside class="aside">
+        <div class="glass">
+          <div class="grid-cols-2">
+            <!-- EXPERIENCIA -->
+            <div class="section reveal">
+              <h3 id="exp">Experiencia</h3>
+              <div class="timeline">
+                <article class="item">
+                  <span class="dot" aria-hidden="true"></span>
+                  <strong id="work-ntt">NTTDATA · Remoto · Nov. 2023 – Presente</strong>
 
-            <div id="work-lares" class="muted" style="margin:4px 0 6px">Lares – Ministerio del Interior (España)</div>
-            <ul id="bullets-lares">
-              <li>—</li>
-            </ul>
-            <span class="dot" aria-hidden="true"></span>
-            
-            <div id="work-garsa" class="muted" style="margin:4px 0 6px">Garsa – Generalitat Valenciana (España)</div>
-            <ul id="bullets-garsa">
-              <li>—</li>
-            </ul>
-            <span class="dot" aria-hidden="true"></span>
+                  <div id="work-lares" class="muted" style="margin:4px 0 6px">Lares – Ministerio del Interior (España)</div>
+                  <ul id="bullets-lares">
+                    <li>—</li>
+                  </ul>
+                  <span class="dot" aria-hidden="true"></span>
+                  
+                  <div id="work-garsa" class="muted" style="margin:4px 0 6px">Garsa – Generalitat Valenciana (España)</div>
+                  <ul id="bullets-garsa">
+                    <li>—</li>
+                  </ul>
+                  <span class="dot" aria-hidden="true"></span>
 
-            <div id="work-cobra" class="muted" style="margin:4px 0 6px">Cobra&Compas – Generalitat Valenciana (España)</div>
-            <ul id="bullets-cobra">
-              <li>—</li>
-            </ul>
-          </article>
-        </div>
-      </div>
+                  <div id="work-cobra" class="muted" style="margin:4px 0 6px">Cobra&Compas – Generalitat Valenciana (España)</div>
+                  <ul id="bullets-cobra">
+                    <li>—</li>
+                  </ul>
+                </article>
+              </div>
+            </div>
 
-      <!-- HABILIDADES -->
-      <div class="section">
-        <h3 id="skills">Habilidades</h3>
-        <div class="timeline">
-          <article class="item">
-            <span class="dot" aria-hidden="true"></span>
-            <strong>Frontend</strong>
-            <ul>
-              <li>Angular · HTML · CSS · JavaScript · Bootstrap · TypeScript</li>
-            </ul>
-          </article>
+            <!-- HABILIDADES -->
+            <div class="section reveal">
+              <h3 id="skills">Habilidades</h3>
+              <div class="timeline">
+                <article class="item">
+                  <span class="dot" aria-hidden="true"></span>
+                  <strong>Frontend</strong>
+                  <ul>
+                    <li>Angular · HTML · CSS · JavaScript · Bootstrap · TypeScript</li>
+                  </ul>
+                </article>
 
-          <article class="item">
-            <span class="dot" aria-hidden="true"></span>
-            <strong>Backend</strong>
-            <ul>
-              <li>Spring Boot · API REST · Java · Microservices</li>
-            </ul>
-          </article>
+                <article class="item">
+                  <span class="dot" aria-hidden="true"></span>
+                  <strong>Backend</strong>
+                  <ul>
+                    <li>Spring Boot · API REST · Java · Microservices</li>
+                  </ul>
+                </article>
 
-          <article class="item">
-            <span class="dot" aria-hidden="true"></span>
-            <strong id="bases_datos">Bases de datos</strong>
-            <ul>
-              <li>SQL · PostgreSQL · MySQL</li>
-            </ul>
-          </article>
+                <article class="item">
+                  <span class="dot" aria-hidden="true"></span>
+                  <strong id="bases_datos">Bases de datos</strong>
+                  <ul>
+                    <li>SQL · PostgreSQL · MySQL</li>
+                  </ul>
+                </article>
 
-          <article class="item">
-            <span class="dot" aria-hidden="true"></span>
-            <strong id="herramientas">Herramientas</strong>
-            <ul>
-              <li>Jira · Git · Postman · Kibana · Camunda · OpenShift · Jenkins</li>
-            </ul>
-          </article>
+                <article class="item">
+                  <span class="dot" aria-hidden="true"></span>
+                  <strong id="herramientas">Herramientas</strong>
+                  <ul>
+                    <li>Jira · Git · Postman · Kibana · Camunda · OpenShift · Jenkins</li>
+                  </ul>
+                </article>
 
-          <article class="item">
-            <span class="dot" aria-hidden="true"></span>
-            <strong id="metodologias">Metodologías</strong>
-            <ul>
-              <li>Scrum · Testing · Migración</li>
-            </ul>
-          </article>
-        </div>
-      </div>
-    </div>
-
-    <!-- EDUCACIÓN (debajo de las columnas) -->
-    <div class="section" style="margin-top: 16px;">
-      <h3 id="edu">Educación</h3>
-      <div class="timeline">
-        <article class="item">
-          <span class="dot" aria-hidden="true"></span>
-          <strong>Universitat Politècnica de València</strong>
-          <div class="muted" style="margin:4px 0 6px" id="edu-text">
-            Tecnología Digital y Multimedia · Julio 2024
+                <article class="item">
+                  <span class="dot" aria-hidden="true"></span>
+                  <strong id="metodologias">Metodologías</strong>
+                  <ul>
+                    <li>Scrum · Testing · Migración</li>
+                  </ul>
+                </article>
+              </div>
+            </div>
           </div>
-        </article>
-      </div>
-    </div>
-  </div>
-</aside>
+
+          <!-- EDUCACIÓN -->
+          <div class="section reveal" style="margin-top: 16px;">
+            <h3 id="edu">Educación</h3>
+            <div class="timeline">
+              <article class="item">
+                <span class="dot" aria-hidden="true"></span>
+                <strong>Universitat Politècnica de València</strong>
+                <div class="muted" style="margin:4px 0 6px" id="edu-text">Tecnología Digital y Multimedia · Julio 2024</div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </aside>
 
     </section>
 
-    
-<section class="section card">
-  <div class="grid cols-3" style="padding:18px">
-    <div>
-      <h3 id="contact">Correo</h3>
-      <div class="contact">
-        <a class="pill" href="mailto:pedrosorianogallego@hotmail.com">✉️ pedrosorianogallego@hotmail.com</a>
+    <section class="section card reveal">
+      <div class="grid cols-3" style="padding:18px">
+        <div>
+          <h3 id="contact">Correo</h3>
+          <div class="contact">
+            <a class="pill" href="mailto:pedrosorianogallego@hotmail.com">✉️ pedrosorianogallego@hotmail.com</a>
+          </div>
+        </div>
+        <div>
+          <h3 id="telefono">Teléfono</h3>
+          <div class="contact">
+            <span class="pill">📞 (+34) 611 45 24 04</span>
+          </div>
+        </div>
+        <div>
+          <h3>LinkedIn</h3>
+          <div class="contact">
+            <a class="pill" href="https://www.linkedin.com/in/pedrosori/" target="_blank" rel="noopener">in/ pedrosori</a>
+          </div>
+        </div>
       </div>
-    </div>
-    <div>
-      <h3 id="telefono">Teléfono</h3>
-      <div class="contact">
-        <span class="pill">📞 (+34) 611 45 24 04</span>
-      </div>
-    </div>
-    <div>
-      <h3>LinkedIn</h3>
-      <div class="contact">
-        <a class="pill" href="https://www.linkedin.com/in/pedrosori/" target="_blank" rel="noopener">in/ pedrosori</a>
-      </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-
-    <p class="footer">© <span id="year"></span> Pedro Soriano
-    </p>
+    <p class="footer">© <span id="year"></span> Pedro Soriano</p>
   </main>
-
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
 
   <!-- Minimal JSON-LD for richer sharing/search -->
   <script type="application/ld+json">
