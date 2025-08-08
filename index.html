@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CV</title>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <style>
+    html,body{height:100%;margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial}
+    .wrap{height:100%;display:flex;align-items:center;justify-content:center;text-align:center;padding:24px;gap:16px;flex-direction:column}
+    .btn{display:inline-block;padding:12px 18px;border-radius:10px;text-decoration:none;background:#0f62fe;color:#fff}
+    .btn.secondary{background:#555}
+    .hint{font-size:.9rem;color:#666}
+  </style>
+  <script>
+    (function () {
+      // Mapeo de idiomas -> archivo
+      const MAP = {
+        es: 'cv-es.pdf',
+        en: 'cv-en.pdf'
+      };
+
+      // 1) override por query ?lang=
+      const params = new URLSearchParams(location.search);
+      const qLang = (params.get('lang') || '').toLowerCase();
+      if (qLang && MAP[qLang]) {
+        localStorage.setItem('cvLang', qLang);
+        location.replace('./' + MAP[qLang]);
+        return;
+      }
+
+      // 2) preferencia guardada
+      const saved = localStorage.getItem('cvLang');
+      if (saved && MAP[saved]) {
+        location.replace('./' + MAP[saved]);
+        return;
+      }
+
+      // 3) detectar idioma del navegador
+      const navLangs = (navigator.languages || [navigator.language || '']).map(l => (l || '').toLowerCase());
+      const match = navLangs
+        .map(l => l.split('-')[0]) // es-ES -> es
+        .find(code => MAP[code]);
+
+      const lang = match || 'es'; // por defecto español
+      localStorage.setItem('cvLang', lang);
+      location.replace('./' + MAP[lang]);
+    })();
+  </script>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Cargando tu CV…</h1>
+    <p class="hint">Si no se abre automáticamente, elige una opción:</p>
+    <div>
+      <a class="btn" href="?lang=es">📄 Ver CV en Español</a>
+      <a class="btn secondary" href="?lang=en">📄 View CV in English</a>
+    </div>
+  </div>
+  <noscript>
+    <div class="wrap">
+      <h1>Selecciona idioma</h1>
+      <p class="hint">JavaScript está desactivado.</p>
+      <div>
+        <a class="btn" href="cv-es.pdf">📄 Español</a>
+        <a class="btn secondary" href="cv-en.pdf">📄 English</a>
+      </div>
+    </div>
+  </noscript>
+</body>
+</html>
